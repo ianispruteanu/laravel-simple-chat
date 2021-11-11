@@ -1,0 +1,43 @@
+{
+    "name": "pruteanu/inter-chat",
+    "description": "Simple chat service",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vadim Ianis Pruteanu",
+            "email": "v.ianis.pruteanu@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pruteanu\\InterChat\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pruteanu\\InterChat\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/contracts": "^8.0",
+        "spatie/laravel-fractal": "^5.8.1",
+        "dyrynda/laravel-efficient-uuid": "^4.4",
+        "dyrynda/laravel-model-uuid": "^6.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pruteanu\\InterChat\\Providers\\InterChatServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10.0.x-dev"
+    }
+}
