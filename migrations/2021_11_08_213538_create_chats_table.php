@@ -10,7 +10,10 @@ class CreateChatsTable extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
-            $table->efficientUuid('uuid')->index();
+            if (config('inter-chat.use_uuid')) {
+                $table->efficientUuid('uuid')->index();
+            }
+
             $table->unsignedBigInteger('opener_id')->index();
             $table->unsignedBigInteger('answerer_id')->index();
             $table->timestamps();

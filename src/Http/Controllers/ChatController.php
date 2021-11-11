@@ -13,7 +13,7 @@ class ChatController
 {
     public function openChatWith($userUid): JsonResponse
     {
-        $answerer = User::whereUuid($userUid)->first();
+        $answerer = $this->findModel($userUid, User::class, config('inter-chat.user_table_column'));
 
         $chat = auth()->user()->openChatWith($answerer);
 
@@ -22,7 +22,7 @@ class ChatController
 
     public function show($chat, Request $request): JsonResponse
     {
-        $chat = Chat::whereUuid($chat)->firstOrFail();
+        $chat = $this->findModel($chat, Chat::class, config('inter-chat.use_uuid') ? 'uuid' : 'id');
 
         return response()->json(fractal($chat, new ChatTransformer($request))->parseIncludes('replies'), Response::HTTP_OK);
     }
@@ -30,5 +30,14 @@ class ChatController
     public function index(): JsonResponse
     {
         return response()->json(fractal(auth()->user()->chats, new ChatTransformer()), Response::HTTP_OK);
+    }
+
+    protected function findModel($id, $model, string $method)
+    {
+        if ($method === 'uuid') {
+            return $model::whereUuid($id)->first();
+        }
+
+        return $model::find($id);
     }
 }

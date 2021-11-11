@@ -3,7 +3,6 @@
 namespace Pruteanu\InterChat\Traits;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Pruteanu\InterChat\Models\Chat;
 
 trait HasTalks
@@ -15,12 +14,12 @@ trait HasTalks
 
     public function openings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Chat::class, 'opener_id', 'id');
+        return $this->hasMany(Chat::class, 'opener_id', config('inter-chat.user_table_identified'));
     }
 
     public function answers()
     {
-        return $this->hasMany(Chat::class, 'answerer_id', 'id');
+        return $this->hasMany(Chat::class, 'answerer_id', config('inter-chat.user_table_identified'));
     }
 
     public function openChatWith(User $user)

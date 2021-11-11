@@ -16,17 +16,26 @@ class ChatReply extends Model
     protected $fillable = [
         'reply',
         'read_at',
-        'chat_id',
     ];
 
     protected $casts = [
         'read_at' => 'datetime',
-        'uuid' => EfficientUuid::class,
     ];
+
+    public function bootSetup()
+    {
+        if (config('inter-chat.use_uuid')) {
+            $this->casts['uuid'] = EfficientUuid::class;
+        }
+    }
 
     public function getRouteKey(): string
     {
-        return 'uuid';
+        if (config('inter-chat.use_uuid')) {
+            return 'uuid';
+        } else {
+            return 'id';
+        }
     }
 
     public function author(): BelongsTo

@@ -31,8 +31,12 @@ class ChatTransformer extends TransformerAbstract
 
     public function transform(Chat $chat): array
     {
+        $id = $chat->id;
+
+        $id = config('inter-chat.use_uuid') ?? $chat->uuid;
+
         return [
-            'uid' => $chat->uuid,
+            'id'            => $id,
             'created_at' => $chat->created_at,
             'updated_at' => $chat->updated_at,
         ];

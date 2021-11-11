@@ -21,13 +21,17 @@ class ChatReplyTransformer extends TransformerAbstract
 
     public function transform(ChatReply $reply): array
     {
+        $id = $reply->id;
+
+        $id = config('inter-chat.use_uuid') ?? $reply->uuid;
+
         return [
-            'uid'           => $reply->uuid,
+            'id'            => $id,
             'message'       => $reply->reply,
             'read_at'       => $reply->read_at,
             'created_at'    => $reply->created_at,
             'updated_at'    => $reply->updated_at,
-            'is_my_message' => $this->request ? $this->request->user()->id == $reply->author->id : null,
+            'is_my_message' => $this->request ? $this->request->user()->getRouteKey() == $reply->author->getRouteKey() : null,
         ];
     }
 }

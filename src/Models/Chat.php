@@ -19,13 +19,22 @@ class Chat extends Model
         'answerer_id'
     ];
 
-    protected $casts = [
-        'uuid' => EfficientUuid::class,
-    ];
+    protected $casts = [];
+
+    public function bootSetup()
+    {
+        if (config('inter-chat.use_uuid')) {
+            $this->casts['uuid'] = EfficientUuid::class;
+        }
+    }
 
     public function getRouteKey(): string
     {
-        return 'uuid';
+        if (config('inter-chat.use_uuid')) {
+            return 'uuid';
+        } else {
+            return 'id';
+        }
     }
 
     public function replies(): HasMany
@@ -35,6 +44,7 @@ class Chat extends Model
 
     public function answerer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        $column = (config('inter-chat.use_uuid')) ? 'uuid' : 'id';
+        return $this->belongsTo(User::class, config('inter-chat.user_table_identified'), $column);
     }
 }
