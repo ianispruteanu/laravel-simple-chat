@@ -25,10 +25,10 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.4|^8.0",
+        "dyrynda/laravel-efficient-uuid": ">=4.4",
+        "dyrynda/laravel-model-uuid": "^6.5",
         "illuminate/contracts": "^8.0",
-        "spatie/laravel-fractal": "^5.8.1",
-        "dyrynda/laravel-efficient-uuid": "^4.4",
-        "dyrynda/laravel-model-uuid": "^6.5"
+        "spatie/laravel-fractal": "^5.8.1"
     },
     "extra": {
         "laravel": {

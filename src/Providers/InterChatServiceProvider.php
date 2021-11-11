@@ -14,6 +14,6 @@ class InterChatServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        $this->app->register('Dyrynda\Database\LaravelEfficientUuidServiceProvider');
     }
 }
