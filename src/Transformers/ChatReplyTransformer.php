@@ -21,12 +21,8 @@ class ChatReplyTransformer extends TransformerAbstract
 
     public function transform(ChatReply $reply): array
     {
-        $id = $reply->id;
-
-        $id = config('inter-chat.use_uuid') ?? $reply->uuid;
-
         return [
-            'id'            => $id,
+            'id'            => $reply->id,
             'message'       => $reply->reply,
             'read_at'       => $reply->read_at,
             'created_at'    => $reply->created_at,

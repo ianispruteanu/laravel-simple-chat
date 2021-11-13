@@ -10,9 +10,6 @@ class CreateChatRepliesTable extends Migration
     {
         Schema::create('chat_replies', function (Blueprint $table) {
             $table->id();
-            if (config('inter-chat.use_uuid')) {
-                $table->efficientUuid('uuid')->index();
-            }
             $table->unsignedBigInteger('chat_id')->index();
             $table->unsignedBigInteger('author_id')->index();
             $table->text('reply');

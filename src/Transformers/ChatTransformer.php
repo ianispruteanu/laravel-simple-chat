@@ -3,6 +3,7 @@
 namespace Pruteanu\InterChat\Transformers;
 
 use Illuminate\Http\Request;
+use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 use Pruteanu\InterChat\Models\Chat;
 
@@ -21,7 +22,7 @@ class ChatTransformer extends TransformerAbstract
         'replies'
     ];
 
-    public function includeReplies(Chat $chat)
+    public function includeReplies(Chat $chat): Collection
     {
         return $this->collection(
             $chat->replies()
@@ -31,12 +32,10 @@ class ChatTransformer extends TransformerAbstract
 
     public function transform(Chat $chat): array
     {
-        $id = $chat->id;
 
-        $id = config('inter-chat.use_uuid') ?? $chat->uuid;
 
         return [
-            'id'            => $id,
+            'id'         => $chat->id,
             'created_at' => $chat->created_at,
             'updated_at' => $chat->updated_at,
         ];

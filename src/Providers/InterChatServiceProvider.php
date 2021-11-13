@@ -18,6 +18,7 @@ class InterChatServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->register('Dyrynda\Database\LaravelEfficientUuidServiceProvider');
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Chat', "Pruteanu\\InterChat\\Facades\\Chat");
     }
 }
