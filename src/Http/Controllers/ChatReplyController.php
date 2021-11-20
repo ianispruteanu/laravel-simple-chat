@@ -32,7 +32,7 @@ class ChatReplyController
         if (!$chat) {
             abort(Response::HTTP_NOT_FOUND, 'Chat not found!');
         }
-        
+
         $replies =
             $chat->replies()->orderBy('created_at', 'DESC')->paginate($request->get('per_page'));
 
