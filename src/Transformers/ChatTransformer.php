@@ -32,8 +32,6 @@ class ChatTransformer extends TransformerAbstract
 
     public function transform(Chat $chat): array
     {
-
-
         return [
             'id'         => $chat->id,
             'created_at' => $chat->created_at,

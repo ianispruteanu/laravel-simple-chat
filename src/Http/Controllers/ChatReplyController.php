@@ -14,15 +14,25 @@ class ChatReplyController
 {
     public function store(ReplyRequest $request, $chat)
     {
-        $chat = Chat::findOrFail($chat);
+        $chat = Chat::find($chat);
+
+        if (!$chat) {
+            abort(Response::HTTP_NOT_FOUND, 'Chat not found!');
+        }
+
+        InterChat::addReply($chat, $request->validated());
 
         return response()->json(fractal($chat, new ChatTransformer($request))->parseIncludes('replies'), Response::HTTP_CREATED);
     }
 
     public function listReplies($chat, Request $request)
     {
-        $chat = Chat::whereUuid($chat)->first();
+        $chat = Chat::find($chat);
 
+        if (!$chat) {
+            abort(Response::HTTP_NOT_FOUND, 'Chat not found!');
+        }
+        
         $replies =
             $chat->replies()->orderBy('created_at', 'DESC')->paginate($request->get('per_page'));
 
